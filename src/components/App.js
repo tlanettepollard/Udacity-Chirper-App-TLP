@@ -7,11 +7,11 @@ const App = (props) => {
 	useEffect(() => {
 		props.dispatch(handleInitialData());
 	});
-	return (
-		<div>
-			<Dashboard />
-		</div>
-	);
+	return <div>{props.loading === true ? null : <Dashboard />}</div>;
 };
 
-export default connect()(App);
+const mapStateToProps = ({ authedUser }) => ({
+	loading: authedUser === null,
+});
+
+export default connect(mapStateToProps)(App);
