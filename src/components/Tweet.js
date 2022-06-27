@@ -6,9 +6,11 @@ import {
 	TiHeartFullOutline,
 } from 'react-icons/ti';
 import { handleToggleTweet } from '../actions/tweets';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Tweet = (props) => {
+	const navigate = useNavigate();
+
 	const handleLike = (e) => {
 		e.preventDefault();
 
@@ -26,7 +28,7 @@ const Tweet = (props) => {
 	const toParent = (e, id) => {
 		e.preventDefault();
 
-		// TODO: Redirect to Parent Tweet
+		navigate(`/tweet/${id}`);
 	};
 
 	if (props.tweet === null) {
