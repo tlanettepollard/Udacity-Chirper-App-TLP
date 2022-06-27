@@ -2,8 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { handleAddTweet } from '../actions/tweets';
+import { useNavigate } from 'react-router-dom';
 
 const NewTweet = ({ dispatch, id }) => {
+	const navigate = useNavigate();
 	const [text, setText] = useState('');
 
 	const handleChange = (e) => {
@@ -17,9 +19,11 @@ const NewTweet = ({ dispatch, id }) => {
 
 		dispatch(handleAddTweet(text, id));
 
-		console.log('New Tweet: ', text);
-
 		setText('');
+		
+		if (!id) {
+			navigate('/');
+		}
 	};
 
 	const tweetLeft = 280 - text.length;
@@ -28,7 +32,6 @@ const NewTweet = ({ dispatch, id }) => {
 		<div>
 			<h3 className='center'>Compose New Tweet</h3>
 			<form className='new-tweet' onSubmit={handleSubmit}>
-				{/* TODO: Redirect to / if submitted */}
 				<textarea
 					placeholder="What's happening?"
 					value={text}
